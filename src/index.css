@@ -1,0 +1,112 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pale:    #EFFAFD;
+  --primary: #4A8BDF;
+  --accent:  #A0006D;
+  --white:   #FFFFFF;
+  --dark:    #1B3A6B;
+  --muted:   #4A6890;
+  --border:  #C8DEFA;
+  --gradient: linear-gradient(135deg, #4A8BDF, #A0006D);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.btn-outline {
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+.btn-outline:hover { background: rgba(74,139,223,0.08); }
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+.btn-primary:hover { background: #3A7BCF; }
+
+.btn-gradient {
+  background: var(--gradient);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(160,0,109,0.25);
+}
+.btn-gradient:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(160,0,109,0.35);
+}
+
+.btn-outline-dark {
+  border: 1.5px solid var(--dark);
+  color: var(--dark);
+  background: transparent;
+}
+.btn-outline-dark:hover { background: rgba(27,58,107,0.06); }
+
+/* ===== SECTION SHARED ===== */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: var(--gradient);
+  border-radius: 2px;
+  margin: 12px auto;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .section-container { padding: 60px 20px; }
+  .section-header h2 { font-size: 1.75rem; }
+}
