@@ -6,7 +6,7 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.resolve(__dirname, 'dist')));
 
 // ─── Contact endpoint ────────────────────────────────────────────────────────
 app.post('/api/contact', async (req, res) => {
@@ -62,9 +62,9 @@ app.post('/api/contact', async (req, res) => {
 
 // ─── SPA fallback ─────────────────────────────────────────────────────────────
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
