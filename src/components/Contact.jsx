@@ -41,11 +41,40 @@ function Field({ label, required, children }) {
 }
 
 export default function Contact() {
-  const [sent, setSent] = useState(false)
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => { setSent(false); e.target.reset() }, 3000)
+    setStatus('loading')
+    setErrorMsg('')
+
+    const fd = new FormData(e.target)
+    const body = {
+      nombre:       fd.get('nombre'),
+      email:        fd.get('email'),
+      telefono:     fd.get('telefono'),
+      organizacion: fd.get('organizacion'),
+      mensaje:      fd.get('mensaje'),
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Error al enviar.')
+      }
+      setStatus('success')
+      e.target.reset()
+      setTimeout(() => setStatus('idle'), 4000)
+    } catch (err) {
+      setErrorMsg(err.message)
+      setStatus('error')
+    }
   }
 
   return (
@@ -74,20 +103,34 @@ export default function Contact() {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="form-row">
-                <Field label="Nombre Completo" required><input type="text" placeholder="Su nombre completo" required style={inputBase} onFocus={focus} onBlur={blur} /></Field>
-                <Field label="Email" required><input type="email" placeholder="su@email.com" required style={inputBase} onFocus={focus} onBlur={blur} /></Field>
+                <Field label="Nombre Completo" required><input name="nombre" type="text" placeholder="Su nombre completo" required style={inputBase} onFocus={focus} onBlur={blur} /></Field>
+                <Field label="Email" required><input name="email" type="email" placeholder="su@email.com" required style={inputBase} onFocus={focus} onBlur={blur} /></Field>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="form-row">
-                <Field label="Teléfono"><input type="tel" placeholder="+54 351 000-0000" style={inputBase} onFocus={focus} onBlur={blur} /></Field>
-                <Field label="Organización"><input type="text" placeholder="Nombre de su organización" style={inputBase} onFocus={focus} onBlur={blur} /></Field>
+                <Field label="Teléfono"><input name="telefono" type="tel" placeholder="+54 351 000-0000" style={inputBase} onFocus={focus} onBlur={blur} /></Field>
+                <Field label="Organización"><input name="organizacion" type="text" placeholder="Nombre de su organización" style={inputBase} onFocus={focus} onBlur={blur} /></Field>
               </div>
               <Field label="Mensaje" required>
-                <textarea rows={4} placeholder="Describa brevemente sus necesidades de auditoría médica..." required style={{ ...inputBase, resize: 'vertical' }} onFocus={focus} onBlur={blur} />
+                <textarea name="mensaje" rows={4} placeholder="Describa brevemente sus necesidades de auditoría médica..." required style={{ ...inputBase, resize: 'vertical' }} onFocus={focus} onBlur={blur} />
               </Field>
 
               <motion.button type="submit" className="btn btn-gradient" whileTap={{ scale: 0.97 }}
-                style={{ width: '100%', padding: '14px', fontSize: '1rem', borderRadius: 10, background: sent ? 'linear-gradient(135deg, #22C55E, #16A34A)' : undefined }}
-              >{sent ? '¡Consulta enviada!' : 'Enviar Consulta'}</motion.button>
+                disabled={status === 'loading' || status === 'success'}
+                style={{
+                  width: '100%', padding: '14px', fontSize: '1rem', borderRadius: 10,
+                  background: status === 'success' ? 'linear-gradient(135deg, #22C55E, #16A34A)' : undefined,
+                  opacity: status === 'loading' ? 0.75 : 1,
+                  cursor: status === 'loading' ? 'wait' : 'pointer',
+                }}
+              >
+                {status === 'loading' ? 'Enviando...' : status === 'success' ? '¡Consulta enviada!' : 'Enviar Consulta'}
+              </motion.button>
+
+              {status === 'error' && (
+                <p style={{ fontSize: '0.82rem', color: C.accent, textAlign: 'center', fontWeight: 500 }}>
+                  ⚠ {errorMsg}
+                </p>
+              )}
               <p style={{ fontSize: '0.75rem', color: C.muted, textAlign: 'center' }}>* Campos obligatorios. Su información será tratada de forma confidencial.</p>
             </form>
           </motion.div>
