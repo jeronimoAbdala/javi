@@ -110,3 +110,54 @@ body {
   .section-container { padding: 60px 20px; }
   .section-header h2 { font-size: 1.75rem; }
 }
+
+/* ===== GLOBAL ANIMATIONS ===== */
+@keyframes particle-float {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  25%       { transform: translate(6px, -22px) scale(1.1); opacity: 0.9; }
+  50%       { transform: translate(-4px, -38px) scale(0.85); opacity: 0.55; }
+  75%       { transform: translate(10px, -18px) scale(1.05); opacity: 0.8; }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(550%); opacity: 0; }
+}
+
+@keyframes mesh-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(28px, -18px) scale(1.07); }
+  66%       { transform: translate(-14px, 12px) scale(0.96); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.75; }
+}
+
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-200%) skewX(-12deg); }
+  100% { transform: translateX(600%) skewX(-12deg); }
+}
+
+@keyframes draw-width {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40%       { transform: translateY(-14px) rotate(1.5deg); }
+  70%       { transform: translateY(-7px) rotate(-0.8deg); }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ===== DARK SECTION HEADINGS ===== */
+.dark-section .section-header h2 { color: #ffffff; }
+.dark-section .section-subtitle    { color: rgba(255,255,255,0.55); }
