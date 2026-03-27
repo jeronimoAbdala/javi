@@ -56,7 +56,7 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.6 }}
         >
-          <h2>¿Quiénes Somos?</h2>
+          <h2>Conócenos</h2>
           <div className="section-divider" />
         </motion.div>
 
@@ -83,9 +83,9 @@ export default function About() {
               hemodinamia, neurocirugía, traumatología y cirugía general, entre otras.
             </p>
             <p style={{ fontSize: '1rem', color: C.muted, lineHeight: 1.85 }}>
-              Nos especializamos en casos clínicos complejos y toma de decisiones de alto impacto,
-              ofreciendo soluciones definitivas o segunda opinión médico-auditora con informes técnicos
-              y peritajes, con enfoque en coherencia diagnóstica y optimización de recursos.
+              Nos especializamos en casos clínicos complejos con toma de decisiones de alto impacto,
+              ofreciendo soluciones definitivas o una segunda opinión médico/auditora con informes técnicos
+              y peritajes, enfoque en coherencia diagnóstica y optimización de recursos.
             </p>
           </motion.div>
         </div>
@@ -119,7 +119,7 @@ export default function About() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }} className="stats-grid">
           {[
             { value: 'Nacional', label: 'Alcance en el país' },
-            { value: 'Multi', suffix: 'disciplinario', label: 'Equipo médico especializado' },
+            { value: 'Multidisciplinario', label: 'Equipo médico especializado' },
             { value: 100, suffix: '%', label: 'Enfoque ético y riguroso' },
           ].map(({ value, suffix, label }, i) => (
             <motion.div key={label}

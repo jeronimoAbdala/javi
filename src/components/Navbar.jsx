@@ -29,7 +29,7 @@ export default function Navbar() {
 
   const links = [
     { label: 'Inicio',        href: '#inicio' },
-    { label: 'Quiénes Somos', href: '#quienes-somos' },
+    { label: 'Conócenos',      href: '#quienes-somos' },
     { label: 'Servicios',     href: '#servicios' },
     { label: 'Contacto',      href: '#contacto' },
   ]
@@ -69,10 +69,6 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }} className="nav-ctas-desktop">
-            <a href="#" className="btn btn-outline" style={{ padding: '8px 18px' }}>Acceso Clientes</a>
-            <a href="#contacto" className="btn btn-primary" style={{ padding: '8px 18px' }}>Consultar Ahora</a>
-          </div>
 
           <button
             onClick={() => setMenuOpen(o => !o)}
@@ -109,10 +105,6 @@ export default function Navbar() {
                   style={{ textDecoration: 'none', color: C.dark, fontWeight: 500, fontSize: '0.95rem' }}
                 >{l.label}</a>
               ))}
-              <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-                <a href="#" className="btn btn-outline" style={{ flex: 1, justifyContent: 'center' }}>Acceso Clientes</a>
-                <a href="#contacto" className="btn btn-primary" onClick={() => setMenuOpen(false)} style={{ flex: 1, justifyContent: 'center' }}>Consultar Ahora</a>
-              </div>
             </div>
           </motion.div>
         )}

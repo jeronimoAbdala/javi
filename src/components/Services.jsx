@@ -27,7 +27,7 @@ export default function Services() {
           <h2>Nuestros Servicios</h2>
           <div className="section-divider" />
           <p className="section-subtitle">
-            Servicios especializados de auditoría médica para financiadores y prestadores de salud
+            ¿Qué servicios ofrecemos?
           </p>
         </motion.div>
 
