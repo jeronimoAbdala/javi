@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const C = { pale: '#EFFAFD', primary: '#4A8BDF', accent: '#A0006D', dark: '#1B3A6B', muted: '#4A6890', border: '#C8DEFA', white: '#FFFFFF' }
@@ -6,12 +5,6 @@ const C = { pale: '#EFFAFD', primary: '#4A8BDF', accent: '#A0006D', dark: '#1B3A
 const PhoneIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15">
     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-  </svg>
-)
-const MailIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
   </svg>
 )
 const WaIcon = () => (
@@ -41,40 +34,27 @@ function Field({ label, required, children }) {
 }
 
 export default function Contact() {
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
-  const [errorMsg, setErrorMsg] = useState('')
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setStatus('loading')
-    setErrorMsg('')
-
     const fd = new FormData(e.target)
-    const body = {
-      nombre:       fd.get('nombre'),
-      email:        fd.get('email'),
-      telefono:     fd.get('telefono'),
-      organizacion: fd.get('organizacion'),
-      mensaje:      fd.get('mensaje'),
-    }
+    const nombre       = fd.get('nombre') || ''
+    const email        = fd.get('email') || ''
+    const telefono     = fd.get('telefono') || ''
+    const organizacion = fd.get('organizacion') || ''
+    const mensaje      = fd.get('mensaje') || ''
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Error al enviar.')
-      }
-      setStatus('success')
-      e.target.reset()
-      setTimeout(() => setStatus('idle'), 4000)
-    } catch (err) {
-      setErrorMsg(err.message)
-      setStatus('error')
-    }
+    const lines = [
+      'Solicitar Consulta',
+      '',
+      `Nombre: ${nombre}`,
+      `Email: ${email}`,
+      telefono     ? `Teléfono: ${telefono}`         : null,
+      organizacion ? `Organización: ${organizacion}` : null,
+      '',
+      `Mensaje: ${mensaje}`,
+    ].filter(l => l !== null).join('\n')
+
+    window.open(`https://wa.me/543515148738?text=${encodeURIComponent(lines)}`, '_blank')
   }
 
   return (
@@ -115,22 +95,10 @@ export default function Contact() {
               </Field>
 
               <motion.button type="submit" className="btn btn-gradient" whileTap={{ scale: 0.97 }}
-                disabled={status === 'loading' || status === 'success'}
-                style={{
-                  width: '100%', padding: '14px', fontSize: '1rem', borderRadius: 10,
-                  background: status === 'success' ? 'linear-gradient(135deg, #22C55E, #16A34A)' : undefined,
-                  opacity: status === 'loading' ? 0.75 : 1,
-                  cursor: status === 'loading' ? 'wait' : 'pointer',
-                }}
+                style={{ width: '100%', padding: '14px', fontSize: '1rem', borderRadius: 10, cursor: 'pointer' }}
               >
-                {status === 'loading' ? 'Enviando...' : status === 'success' ? '¡Consulta enviada!' : 'Enviar Consulta'}
+                Solicitar Consulta
               </motion.button>
-
-              {status === 'error' && (
-                <p style={{ fontSize: '0.82rem', color: C.accent, textAlign: 'center', fontWeight: 500 }}>
-                  ⚠ {errorMsg}
-                </p>
-              )}
               <p style={{ fontSize: '0.75rem', color: C.muted, textAlign: 'center' }}>* Campos obligatorios. Su información será tratada de forma confidencial.</p>
             </form>
           </motion.div>
@@ -167,18 +135,6 @@ export default function Contact() {
               </div>
             </div>
 
-            <motion.a href="mailto:consultoraauditoriaMS@gmail.com"
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ y: -3, boxShadow: `0 8px 24px rgba(74,139,223,0.15)` }}
-              style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '20px 24px', borderRadius: 16, background: C.pale, border: `1px solid ${C.border}`, textDecoration: 'none' }}
-            >
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #4A8BDF, #A0006D)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: C.white, flexShrink: 0 }}><MailIcon /></div>
-              <div>
-                <p style={{ fontSize: '0.78rem', color: C.muted, fontWeight: 500 }}>Correo electrónico</p>
-                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: C.dark }}>consultoraauditoriaMS@gmail.com</p>
-              </div>
-            </motion.a>
           </motion.div>
         </div>
       </div>
