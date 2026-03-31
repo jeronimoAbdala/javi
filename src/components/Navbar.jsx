@@ -5,11 +5,11 @@ const C = { pale: '#EFFAFD', primary: '#4A8BDF', accent: '#A0006D', dark: '#1B3A
 
 const LogoIcon = () => (
   <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
-    <path d="M20 4L36 34H4L20 4Z" stroke="url(#ng1)" strokeWidth="2.5" fill="none" />
-    <path d="M20 12L28 28H12L20 12Z" fill="url(#ng1)" opacity="0.3" />
-    <path d="M15 22L20 12L25 22" stroke="url(#ng1)" strokeWidth="2" fill="none" />
+    <circle cx="20" cy="20" r="16" stroke="url(#ng1)" strokeWidth="2" fill="rgba(74,139,223,0.1)" />
+    <path d="M6 20L11 20L13.5 13L16.5 27L19 17L21.5 23L24 20L34 20"
+      stroke="url(#ng1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     <defs>
-      <linearGradient id="ng1" x1="4" y1="4" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+      <linearGradient id="ng1" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#4A8BDF" />
         <stop offset="100%" stopColor="#A0006D" />
       </linearGradient>
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   const links = [
     { label: 'Inicio',        href: '#inicio' },
-    { label: 'Quiénes Somos', href: '#quienes-somos' },
+    { label: 'Conócenos',      href: '#quienes-somos' },
     { label: 'Servicios',     href: '#servicios' },
     { label: 'Contacto',      href: '#contacto' },
   ]
@@ -69,10 +69,6 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }} className="nav-ctas-desktop">
-            <a href="#" className="btn btn-outline" style={{ padding: '8px 18px' }}>Acceso Clientes</a>
-            <a href="#contacto" className="btn btn-primary" style={{ padding: '8px 18px' }}>Consultar Ahora</a>
-          </div>
 
           <button
             onClick={() => setMenuOpen(o => !o)}
@@ -109,10 +105,6 @@ export default function Navbar() {
                   style={{ textDecoration: 'none', color: C.dark, fontWeight: 500, fontSize: '0.95rem' }}
                 >{l.label}</a>
               ))}
-              <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-                <a href="#" className="btn btn-outline" style={{ flex: 1, justifyContent: 'center' }}>Acceso Clientes</a>
-                <a href="#contacto" className="btn btn-primary" onClick={() => setMenuOpen(false)} style={{ flex: 1, justifyContent: 'center' }}>Consultar Ahora</a>
-              </div>
             </div>
           </motion.div>
         )}

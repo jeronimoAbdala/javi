@@ -27,13 +27,13 @@ const PARTICLES = [
 
 const LogoIcon = () => (
   <svg width="52" height="52" viewBox="0 0 40 40" fill="none">
-    <path d="M20 4L36 34H4L20 4Z" stroke="url(#hg1)" strokeWidth="2.5" fill="none" />
-    <path d="M20 12L28 28H12L20 12Z" fill="url(#hg1)" opacity="0.3" />
-    <path d="M15 22L20 12L25 22" stroke="url(#hg1)" strokeWidth="2" fill="none" />
+    <circle cx="20" cy="20" r="16" stroke="url(#hg1)" strokeWidth="2" fill="rgba(255,255,255,0.08)" />
+    <path d="M6 20L11 20L13.5 13L16.5 27L19 17L21.5 23L24 20L34 20"
+      stroke="url(#hg1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     <defs>
-      <linearGradient id="hg1" x1="4" y1="4" x2="36" y2="34" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#4A8BDF" />
-        <stop offset="100%" stopColor="#A0006D" />
+      <linearGradient id="hg1" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#5fa3f7" />
+        <stop offset="100%" stopColor="#d060b8" />
       </linearGradient>
     </defs>
   </svg>
